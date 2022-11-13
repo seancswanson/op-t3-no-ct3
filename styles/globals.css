@@ -6,4 +6,6 @@ html,
 body {
   font-family: "Arial Narrow", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+    @apply text-white bg-gray-800;
 }
