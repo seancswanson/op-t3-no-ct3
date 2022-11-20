@@ -1,9 +1,12 @@
 # Original Script by ItzSylex: https://github.com/ItzSylex/JojoAPI
-# All I added here was a main function and additional property "stand_name_ja" for the kanji name of the stand.
+# I added a main function and two additional properties:
+# "stand_name_ja" for the kanji name of the stand and
+# "season" for the name of the JJBA Season the stand is in.
 
 from bs4 import BeautifulSoup
 import requests
 import json
+import time
 
 def get_links():
     link = "https://jojowiki.com/List_of_Stands"
@@ -110,6 +113,7 @@ def get_attributes(links_list):
         hair_color = hair_color_div.find("div").contents[0] if hair_color_div else "Unknown"
 
         information["reference_url"] = "https://jojowiki.com" + stand
+        information["season"] = name
         information["type"] = type_names
         information["stand"] = stand_name
         information["stand_ja"] = stand_name_ja
@@ -125,10 +129,12 @@ def get_attributes(links_list):
     return final_data
 
 def main():
-    # print(get_attributes(get_links()))
-
+    tic = time.perf_counter()
     # For testing a single stand:
     # print(get_attributes(['Stardust Crusaders', '/Star_Platinum', '/Jotaro_Kujo']))
+    print(get_attributes(get_links()))
+    toc = time.perf_counter()
+    print(f"Downloaded the wiki data in {toc - tic:0.4f} seconds")
 
 if __name__ == "__main__":
     main()
