@@ -1,10 +1,16 @@
 import Head from "next/head";
 import Image from "next/image";
-import menacing from "../public/img/menacing.png";
+import useSwr from "swr";
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home() {
+    const { data, error } = useSwr<any>('/api/data', fetcher)
+
+
   const handleOpClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log("Clicked!", e);
+    console.log(data)
   };
   return (
     <div className="m-auto flex h-screen max-w-screen-sm flex-col justify-center gap-6">
@@ -38,7 +44,7 @@ export default function Home() {
             OP
           </button>
         </div>
-        <div className="italic">or</div>
+        <div className="italic p-8">or</div>
         <div className="flex flex-col items-center">
           <div className="stand-name mb-8 text-xl">The World</div>
           <div className="stand-picture-container mb-4 w-52 h-64 relative">
